@@ -2,10 +2,12 @@ const express = require('express');
 const db = require('./Controller/StudentController');
 const route = require('./routes');
 
+const port = process.env.PORT || 3030
+
 //khoi tao server
 const app = express();
 
 // Init route
 route(app);
 
-app.listen(1000, () => console.log('Listening localhost:1000'));
+app.listen(port, () => console.log(`Listening ${port}`));
