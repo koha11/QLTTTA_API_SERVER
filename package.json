@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install_libs": "npm install espress msnodesqlv8 mssql tedious nodemon"
+    "install_libs": "npm install espress msnodesqlv8 mssql tedious nodemon",
     "start": "nodemon --inspect src/index.js"
   },
   "author": "koha",
