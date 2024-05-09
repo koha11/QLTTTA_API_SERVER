@@ -17,7 +17,7 @@
     "nodemon": "^3.1.0",
     "tedious": "^18.2.0"
   },
-  "engine":{
+  "engines":{
   "name": "api-make",
   "version": "1.0.0",
   "description": "",
