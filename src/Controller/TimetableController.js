@@ -24,7 +24,7 @@
 //     //có thể xử lí dữ liệu ở biến formData r mới thêm vào DB
 //   }
 
-  update(req, res, next) {}
-}
+//   update(req, res, next) {}
+// }
 
-module.exports = new TimetableController();
+// module.exports = new TimetableController();
