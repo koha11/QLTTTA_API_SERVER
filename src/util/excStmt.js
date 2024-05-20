@@ -65,7 +65,10 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
                 row.forEach((column) => {
                   //Lap qua tung cot cua hang do
                   if (column.metadata.colName.toLowerCase().includes('date'))
-                    res[column.metadata.colName] = column.value.slice(0, 10);
+                    res[column.metadata.colName] = column.value.toString.slice(
+                      0,
+                      10
+                    );
                   else res[column.metadata.colName] = column.value;
                 });
 
