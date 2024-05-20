@@ -62,10 +62,11 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
                 //Lap qua tung hang
                 let res = {};
 
-                //Lap qua tung hang
                 row.forEach((column) => {
                   //Lap qua tung cot cua hang do
-                  res[column.metadata.colName] = column.value;
+                  if (column.metadata.colName.includes('date' || 'DATE'))
+                    res[column.metadata.colName] = column.value.slice(0, 10);
+                  else res[column.metadata.colName] = column.value;
                 });
                 return res;
               });
