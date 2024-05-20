@@ -1,77 +1,69 @@
-const tedious = require('tedious');
-const Request = tedious.Request;
-const Connection = tedious.Connection;
-
 const excStmt = require('../util/excStmt');
 
-const isObjEmpty = require('../util/supportFunction');
-
-const connectionString =
-  'server=KOHA11\\SQLEXPRESS;Database=QLTTTA;Trusted_Connection=Yes;TrustServerCertificate=Yes;Driver={ODBC Driver 18 for SQL Server}';
+const spFunc = require('../util/supportFunction');
 
 class StudentController {
   index(req, res, next) {
-    const config = {
-      server: 'KOHA11',
-      authentication: {
-        type: 'default',
-        options: {
-          userName: 'admin1234',
-          password: '1',
-        },
-      },
-      options: {
-        //port: 61784,
-        database: 'QLTTTA',
-        instanceName: 'SQLEXPRESS',
-        trustServerCertificate: true,
-        trustedConnection: true,
-      },
-    };
-    const connection = new Connection(config);
-    connection.connect((err) => {
-      if (err) {
-        console.log('connection err');
-        throw err;
-      }
+    excStmt('select * from student').then((value) => {
+      console.log(value);
+      res.json(value);
     });
-    connection.on('connect', async (err) => {
-      if (err) {
-        console.log('Error: ', err);
-      } else {
-        console.log('Successful connection');
-        const request = new Request(
-          'select * from student',
-          (err, rowCount) => {
-            if (err) {
-              console.log('error occured!');
-              throw err;
-            } else {
-              //console.log(rowCount);
-            }
-          }
-        );
+  }
 
-        let data = [];
-
-        request.on('row', (columns) => {
-          data.push(columns);
-        });
-
-        setTimeout(() => {
-          console.log(data);
-          data = data.map((row) => {
-            let res = {};
-            row.forEach((column) => {
-              res[column.metadata.colName] = column.value;
-            });
-            return res;
-          });
-          console.log(data);
-          res.json(data);
-        }, 1000);
-        connection.execSql(request);
+  //find
+  show(req, res, next) {
+    const id = req.params.slug;
+    excStmt(`select * from student where student_id = '${id}'`).then(
+      (value) => {
+        if (value.length == 0) res.json([{ 404: 'NOT FOUND ID !!!' }]);
+        else res.json(value);
       }
+    );
+  }
+
+  //update data for table
+  update(req, res, next) {
+    let input = req.body;
+    const updateObj = spFunc.updateDataStr(input);
+    console.log(updateObj);
+    excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
+      (value) => {
+        console.log(value);
+        res.send(`<h1>${value}</h1>`);
+      }
+    );
+  }
+
+  // insert data for table
+  create(req, res, next) {
+    let input = req.body;
+    const insertObj = spFunc.insertDataStr(input);
+    console.log(insertObj);
+    excStmt(
+      `insert into student(${insertObj.key}) values(${insertObj.value})`
+    ).then((value) => {
+      console.log(value);
+      res.send(`<h1>${value}</h1>`);
+    });
+  }
+
+  delete(req, res, next) {
+    let input = req.body;
+    const insertObj = spFunc.insertDataStr(input);
+    console.log(insertObj);
+    excStmt(
+      `insert into student(${insertObj.key}) values(${insertObj.value})`
+    ).then((value) => {
+      console.log(value);
+      res.send(`<h1>${value}</h1>`);
+    });
+  }
+
+  //get key of table
+  keys(req, res, next) {
+    excStmt('select * from student', 1).then((value) => {
+      console.log(value);
+      res.json(value);
     });
   }
 
@@ -84,28 +76,6 @@ class StudentController {
   //       .then((row) => {
   //         if (isObjEmpty(row.first)) res.json({ 404: 'NOT FOUND' });
   //         else res.json(row.first);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } catch (e) {
-  //     console.log(e);
-  //     return undefined;
-  //   }
-  // }
-
-  create(req, res, next) {
-    const formData = req.body;
-    //có thể xử lí dữ liệu ở biến formData r mới thêm vào DB
-  }
-
-  update(req, res, next) {}
-
-  // async getKey(req, res, next) {
-  //   const query = `SELECT * FROM STUDENT`;
-  //   try {
-  //     await sql.promises
-  //       .query(connectionString, query)
-  //       .then((row) => {
-  //         res.json(row.firstMeta);
   //       })
   //       .catch((err) => console.log(err));
   //   } catch (e) {
