@@ -11,7 +11,7 @@ class StudentController {
     );
     excStmt('select * from student').then((value) => {
       console.log(value);
-      res.json(value);
+      res.send(JSON.stringify(value));
     });
   }
 
