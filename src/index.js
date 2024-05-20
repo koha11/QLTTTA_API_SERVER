@@ -2,8 +2,8 @@ const express = require('express');
 const route = require('./routes');
 const cors = require('cors');
 
-const port = '1000' || process.env.PORT || 3030;
-
+//const port = '1000';
+const port = process.env.PORT || 4000;
 //khoi tao server
 const app = express();
 
