@@ -1,5 +1,6 @@
 const express = require('express');
 const route = require('./routes');
+const cors = require('cors');
 
 const port = '1000' || process.env.PORT || 3030;
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(cors);
 // Init route
 route(app);
 
