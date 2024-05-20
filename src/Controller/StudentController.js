@@ -4,6 +4,11 @@ const spFunc = require('../util/supportFunction');
 
 class StudentController {
   index(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
     excStmt('select * from student').then((value) => {
       console.log(value);
       res.json(value);
