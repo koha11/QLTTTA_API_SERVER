@@ -33,11 +33,6 @@ class StudentController {
 
   //update data for table
   update(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    );
     let input = req.body;
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
