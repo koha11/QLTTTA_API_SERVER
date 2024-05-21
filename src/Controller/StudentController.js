@@ -18,6 +18,11 @@ class StudentController {
   //find
   show(req, res, next) {
     const id = req.params.slug;
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
     excStmt(`select * from student where student_id = '${id}'`).then(
       (value) => {
         if (value.length == 0) res.json([{ 404: 'NOT FOUND ID !!!' }]);
@@ -34,7 +39,7 @@ class StudentController {
     excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
       (value) => {
         console.log(value);
-        res.send(`<h1>${value}</h1>`);
+        res.send(value);
       }
     );
   }
