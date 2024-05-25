@@ -41,13 +41,13 @@ class StudentController {
     //   'Access-Control-Allow-Headers',
     //   'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     // );
-
-    excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
-      (value) => {
-        console.log(value);
-        res.send(value);
-      }
-    );
+    res.send('done');
+    // //excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
+    //   (value) => {
+    //     console.log(value);
+    //     res.send(value);
+    //   }
+    // );
   }
 
   // insert data for table
