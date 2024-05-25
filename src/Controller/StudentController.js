@@ -26,11 +26,12 @@ class StudentController {
     let input = req.body;
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
-    excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
-      (value) => {
-        res.send('done');
-      }
-    );
+    excStmt(
+      `update student set ${updateObj.set} where ${updateObj.id}`,
+      'post'
+    ).then((value) => {
+      res.send('done');
+    });
   }
 
   // insert data for table
@@ -39,7 +40,8 @@ class StudentController {
     const insertObj = spFunc.insertDataStr(input);
     console.log(insertObj);
     excStmt(
-      `insert into student(${insertObj.key}) values(${insertObj.value})`
+      `insert into student(${insertObj.key}) values(${insertObj.value})`,
+      'post'
     ).then((value) => {
       res.send('done');
     });
@@ -49,7 +51,7 @@ class StudentController {
     let input = req.body;
     let condition = spFunc.deleteDataStr(input);
     console.log(condition);
-    excStmt(`delete from student where ${condition}`).then((value) => {
+    excStmt(`delete from student where ${condition}`, 'post').then((value) => {
       console.log(value);
       res.send(`done`);
     });

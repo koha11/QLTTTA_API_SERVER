@@ -3,6 +3,7 @@ const Request = tedious.Request;
 const Connection = tedious.Connection;
 
 async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
+  console.log(sqlString);
   const config = {
     server: 'DB_QLTTTA.mssql.somee.com',
     authentication: {
@@ -65,8 +66,8 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
                 row.forEach((column) => {
                   //Lap qua tung cot cua hang do
                   if (column.metadata.colName.toLowerCase().includes('date'))
-                    res[column.metadata.colName] =
-                      column.value; // BUG datetime value
+                    res[column.metadata.colName] = column.value;
+                  // BUG datetime value
                   else res[column.metadata.colName] = column.value;
                 });
 
