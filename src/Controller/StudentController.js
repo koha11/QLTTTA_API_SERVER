@@ -4,11 +4,11 @@ const spFunc = require('../util/supportFunction');
 
 class StudentController {
   index(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    );
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.header(
+    //   'Access-Control-Allow-Headers',
+    //   'Origin, X-Requested-With, Content-Type, Accept'
+    // );
     excStmt('select * from student').then((value) => {
       console.log(value);
       res.send(JSON.stringify(value));
@@ -36,9 +36,6 @@ class StudentController {
     let input = req.body;
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    res.setHeader('Access-Control-Allow-Methods', '*');
     excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
       (value) => {
         res.send('');
