@@ -48,7 +48,7 @@ class StudentController {
   delete(req, res, next) {
     let input = req.body;
     let condition = spFunc.deleteDataStr(input);
-
+    console.log(condition);
     excStmt(`delete from student where ${condition}`).then((value) => {
       console.log(value);
       res.send(`done`);

@@ -58,6 +58,8 @@ function deleteDataStr(input) {
   for (const key in input) {
     if (Object.hasOwnProperty.call(input, key)) {
       let value = input[key];
+      console.log(key);
+      console.log(value);
       if (condition == '') condition += `${key} = ${value}`;
       else condition += `and ${key} = ${value}`;
     }
