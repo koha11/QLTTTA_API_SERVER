@@ -52,4 +52,18 @@ function updateDataStr(input) {
   return { set: setStr, id: idStr };
 }
 
-module.exports = { insertDataStr, updateDataStr };
+function deleteDataStr(input) {
+  let condition = '';
+
+  for (const key in input) {
+    if (Object.hasOwnProperty.call(input, key)) {
+      let value = input[key];
+      if (condition == '') condition += `${key} = ${value}`;
+      else condition += `and ${key} = ${value}`;
+    }
+  }
+
+  return condition;
+}
+
+module.exports = { insertDataStr, updateDataStr, deleteDataStr };

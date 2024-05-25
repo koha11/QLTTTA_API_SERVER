@@ -47,13 +47,11 @@ class StudentController {
 
   delete(req, res, next) {
     let input = req.body;
-    const insertObj = spFunc.insertDataStr(input);
-    console.log(insertObj);
-    excStmt(
-      `insert into student(${insertObj.key}) values(${insertObj.value})`
-    ).then((value) => {
+    let condition = deleteDataStr(input);
+
+    excStmt(`delete from student where ${condition}`).then((value) => {
       console.log(value);
-      res.send(`<h1>${value}</h1>`);
+      res.send(`done`);
     });
   }
 
