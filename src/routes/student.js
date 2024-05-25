@@ -4,6 +4,7 @@ const StudentController = require('../Controller/StudentController');
 const router = express.Router();
 
 router.post('/delete', StudentController.delete);
+router.options('/update', StudentController.update);
 router.post('/update', StudentController.update);
 router.post('/create', StudentController.create);
 router.get('/keys', StudentController.keys);
