@@ -60,8 +60,8 @@ function deleteDataStr(input) {
       let value = input[key];
       console.log(key);
       console.log(value);
-      if (condition == '') condition += `${key} = ${value}`;
-      else condition += `and ${key} = ${value}`;
+      if (condition == '') condition += `${key} = N'${value}'`;
+      else condition += `and ${key} = N'${value}'`;
     }
   }
 
