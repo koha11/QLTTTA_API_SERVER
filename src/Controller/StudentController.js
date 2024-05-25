@@ -36,18 +36,17 @@ class StudentController {
     let input = req.body;
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
-    res.header('Access-Control-Allow-Origin', '*');
+    //res.header('Access-Control-Allow-Origin', '*');
     // res.header(
     //   'Access-Control-Allow-Headers',
     //   'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     // );
-    res.send('done');
-    // //excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
-    //   (value) => {
-    //     console.log(value);
-    //     res.send(value);
-    //   }
-    // );
+    excStmt(`update student set ${updateObj.set} where ${updateObj.id} `).then(
+      (value) => {
+        console.log(value);
+        res.send(value);
+      }
+    );
   }
 
   // insert data for table
