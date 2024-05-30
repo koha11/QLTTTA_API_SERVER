@@ -2,9 +2,9 @@ const excStmt = require('../util/excStmt');
 
 const spFunc = require('../util/supportFunction');
 
-class StudentController {
+class BillController {
   index(req, res, next) {
-    excStmt('select * from student').then((value) => {
+    excStmt('select * from bill').then((value) => {
       console.log(value);
       res.send(JSON.stringify(value));
     });
@@ -13,12 +13,10 @@ class StudentController {
   //find
   show(req, res, next) {
     const id = req.params.slug;
-    excStmt(`select * from student where student_id = '${id}'`).then(
-      (value) => {
-        if (value.length == 0) res.json([{ 404: 'NOT FOUND ID !!!' }]);
-        else res.json(value);
-      }
-    );
+    excStmt(`select * from bill where bill_id = '${id}'`).then((value) => {
+      if (value.length == 0) res.json([{ 404: 'NOT FOUND ID !!!' }]);
+      else res.json(value);
+    });
   }
 
   //update data for table
@@ -27,7 +25,7 @@ class StudentController {
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
     excStmt(
-      `update student set ${updateObj.set} where ${updateObj.id}`,
+      `update bill set ${updateObj.set} where ${updateObj.id}`,
       'post'
     ).then((value) => {
       res.send('done');
@@ -39,10 +37,7 @@ class StudentController {
     let input = req.body;
     const insertObj = spFunc.insertDataStr(input);
     console.log(insertObj);
-    excStmt(
-      `insert into student(${insertObj.key}) values(${insertObj.value})`,
-      'post'
-    ).then((value) => {
+    excStmt(`EXEC PR_BILL_INSERT ${insertObj.value}`, 'post').then((value) => {
       res.send('done');
     });
   }
@@ -51,7 +46,7 @@ class StudentController {
     let input = req.body;
     let condition = spFunc.deleteDataStr(input);
     console.log(condition);
-    excStmt(`delete from student where ${condition}`, 'post').then((value) => {
+    excStmt(`delete from bill where ${condition}`, 'post').then((value) => {
       console.log(value);
       res.send(`done`);
     });
@@ -59,11 +54,27 @@ class StudentController {
 
   //get key of table
   keys(req, res, next) {
-    excStmt('select * from student', 1).then((value) => {
+    excStmt('select * from bill', 1).then((value) => {
       console.log(value);
       res.json(value);
     });
   }
+
+  //ktra HS con no tien hoc phi
+  check(req, res, next) {
+    excStmt(`PR_BILL_CHECK 1`).then((value) => {
+      console.log(value);
+      res.send(`done`);
+    });
+  }
+
+  //Xoa nhung HS no hoc phi qua 7 ngay va hien thi ra
+  deleteStudent(req, res, next) {
+    excStmt(`PR_BILL_CHECK 0`, 'post').then((value) => {
+      console.log(value);
+      res.send(`done`);
+    });
+  }
 }
 
-module.exports = new StudentController();
+module.exports = new BillController();

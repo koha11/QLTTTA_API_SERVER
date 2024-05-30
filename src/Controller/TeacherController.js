@@ -2,9 +2,9 @@ const excStmt = require('../util/excStmt');
 
 const spFunc = require('../util/supportFunction');
 
-class StudentController {
+class TeacherController {
   index(req, res, next) {
-    excStmt('select * from student').then((value) => {
+    excStmt('select * from Teacher').then((value) => {
       console.log(value);
       res.send(JSON.stringify(value));
     });
@@ -13,7 +13,7 @@ class StudentController {
   //find
   show(req, res, next) {
     const id = req.params.slug;
-    excStmt(`select * from student where student_id = '${id}'`).then(
+    excStmt(`select * from Teacher where Teacher_id = '${id}'`).then(
       (value) => {
         if (value.length == 0) res.json([{ 404: 'NOT FOUND ID !!!' }]);
         else res.json(value);
@@ -27,7 +27,7 @@ class StudentController {
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
     excStmt(
-      `update student set ${updateObj.set} where ${updateObj.id}`,
+      `update Teacher set ${updateObj.set} where ${updateObj.id}`,
       'post'
     ).then((value) => {
       res.send('done');
@@ -40,7 +40,7 @@ class StudentController {
     const insertObj = spFunc.insertDataStr(input);
     console.log(insertObj);
     excStmt(
-      `insert into student(${insertObj.key}) values(${insertObj.value})`,
+      `insert into Teacher(${insertObj.key}) values(${insertObj.value})`,
       'post'
     ).then((value) => {
       res.send('done');
@@ -51,7 +51,7 @@ class StudentController {
     let input = req.body;
     let condition = spFunc.deleteDataStr(input);
     console.log(condition);
-    excStmt(`delete from student where ${condition}`, 'post').then((value) => {
+    excStmt(`delete from Teacher where ${condition}`, 'post').then((value) => {
       console.log(value);
       res.send(`done`);
     });
@@ -59,11 +59,11 @@ class StudentController {
 
   //get key of table
   keys(req, res, next) {
-    excStmt('select * from student', 1).then((value) => {
+    excStmt('select * from Teacher', 1).then((value) => {
       console.log(value);
       res.json(value);
     });
   }
 }
 
-module.exports = new StudentController();
+module.exports = new TeacherController();
