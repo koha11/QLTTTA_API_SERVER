@@ -15,7 +15,7 @@ function route(app) {
   app.use('/course', courseRouter);
   app.use('/result', resultRouter);
   app.use('/teacher', teacherRouter);
-  app.use('/classDetail', classDetailRouter);
+  app.use('/class_Detail', classDetailRouter);
 }
 
 module.exports = route;
