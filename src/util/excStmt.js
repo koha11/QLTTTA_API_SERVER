@@ -54,20 +54,28 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
         if (method == 'get')
           setTimeout(() => {
             console.log(data);
-            data = data.map((row) => {
-              //Lap qua tung hang
-              let res = {};
 
-              row.forEach((column) => {
-                //Lap qua tung cot cua hang do
-                if (column.metadata.colName.toLowerCase().includes('date'))
-                  res[column.metadata.colName] = column.value;
-                // BUG datetime value
-                else res[column.metadata.colName] = column.value;
+            if (keyOnly) {
+              //Neu chi lay key thi tdoi ket qua dau ra
+              let obj = {};
+              data.forEach((column) => (obj[column[0].value] = ''));
+              data = [];
+              data.push(obj);
+            } else
+              data = data.map((row) => {
+                //Lap qua tung hang
+                let res = {};
+
+                row.forEach((column) => {
+                  //Lap qua tung cot cua hang do
+                  if (column.metadata.colName.toLowerCase().includes('date'))
+                    res[column.metadata.colName] = column.value;
+                  // BUG datetime value
+                  else res[column.metadata.colName] = column.value;
+                });
+
+                return res;
               });
-
-              return res;
-            });
 
             resolve(data);
           }, 1000);
