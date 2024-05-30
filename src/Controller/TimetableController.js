@@ -66,6 +66,7 @@ class TimetableController {
   keys(req, res, next) {
     excStmt(
       `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'timetable'`,
+      'get',
       1
     ).then((value) => {
       console.log(value);
