@@ -51,17 +51,19 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
 
         connection.execSql(request);
 
+        console.log(data);
+        console.log(method);
+        console.log('key only: ' + keyOnly);
         if (method == 'get')
           setTimeout(() => {
             console.log(data);
-
             if (keyOnly) {
               //Neu chi lay key thi tdoi ket qua dau ra
               let obj = {};
               data.forEach((column) => (obj[column[0].value] = ''));
               data = [];
               data.push(obj);
-            } else
+            } else {
               data = data.map((row) => {
                 //Lap qua tung hang
                 let res = {};
@@ -76,6 +78,7 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
 
                 return res;
               });
+            }
 
             resolve(data);
           }, 1000);
