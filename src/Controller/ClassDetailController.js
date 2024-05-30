@@ -4,7 +4,7 @@ const spFunc = require('../util/supportFunction');
 
 class ClassDetailController {
   index(req, res, next) {
-    excStmt('select * from ClassDetail').then((value) => {
+    excStmt('select * from Class_Detail').then((value) => {
       console.log(value);
       res.send(JSON.stringify(value));
     });
@@ -13,7 +13,7 @@ class ClassDetailController {
   //find
   show(req, res, next) {
     const id = req.params.slug;
-    excStmt(`select * from ClassDetail where ClassDetail_id = '${id}'`).then(
+    excStmt(`select * from Class_Detail where class_id = '${id}'`).then(
       (value) => {
         if (value.length == 0) res.json([{ 404: 'NOT FOUND ID !!!' }]);
         else res.json(value);
@@ -27,7 +27,7 @@ class ClassDetailController {
     const updateObj = spFunc.updateDataStr(input);
     console.log(updateObj);
     excStmt(
-      `update ClassDetail set ${updateObj.set} where ${updateObj.id}`,
+      `update Class_Detail set ${updateObj.set} where ${updateObj.id}`,
       'post'
     ).then((value) => {
       res.send('done');
@@ -40,7 +40,7 @@ class ClassDetailController {
     const insertObj = spFunc.insertDataStr(input);
     console.log(insertObj);
     excStmt(
-      `insert into ClassDetail(${insertObj.key}) values(${insertObj.value})`,
+      `insert into Class_Detail(${insertObj.key}) values(${insertObj.value})`,
       'post'
     ).then((value) => {
       res.send('done');
@@ -51,7 +51,7 @@ class ClassDetailController {
     let input = req.body;
     let condition = spFunc.deleteDataStr(input);
     console.log(condition);
-    excStmt(`delete from ClassDetail where ${condition}`, 'post').then(
+    excStmt(`delete from Class_Detail where ${condition}`, 'post').then(
       (value) => {
         console.log(value);
         res.send(`done`);
@@ -61,7 +61,11 @@ class ClassDetailController {
 
   //get key of table
   keys(req, res, next) {
-    excStmt('select * from ClassDetail', 1).then((value) => {
+    excStmt(
+      `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'class_Detail'`,
+      'get',
+      1
+    ).then((value) => {
       console.log(value);
       res.json(value);
     });

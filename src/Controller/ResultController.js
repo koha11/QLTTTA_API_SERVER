@@ -58,7 +58,11 @@ class ResultController {
 
   //get key of table
   keys(req, res, next) {
-    excStmt('select * from Result', 1).then((value) => {
+    excStmt(
+      `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'result'`,
+      'get',
+      1
+    ).then((value) => {
       console.log(value);
       res.json(value);
     });

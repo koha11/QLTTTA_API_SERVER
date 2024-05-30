@@ -51,9 +51,6 @@ async function excStmt(sqlString = '', method = 'get', keyOnly = 0) {
 
         connection.execSql(request);
 
-        console.log(data);
-        console.log(method);
-        console.log('key only: ' + keyOnly);
         if (method == 'get')
           setTimeout(() => {
             console.log(data);
