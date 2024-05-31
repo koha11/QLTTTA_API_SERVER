@@ -30,7 +30,7 @@ class BillController {
     });
   }
 
-  // insert data for table
+  // insert data for table s
   create(req, res, next) {
     let input = req.body;
     const insertObj = spFunc.insertDataStr(input);
