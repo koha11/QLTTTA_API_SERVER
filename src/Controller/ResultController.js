@@ -23,6 +23,7 @@ class ResultController {
   update(req, res, next) {
     let input = req.body;
     let updateDataStr = '';
+    console.log(input);
     input.forEach((value) => {
       if (isNaN(value))
         updateDataStr += updateDataStr == '' ? `N'${value}'` : `,N'${value}'`;

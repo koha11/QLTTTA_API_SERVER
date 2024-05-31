@@ -22,15 +22,17 @@ class BillController {
   //update data for table
   update(req, res, next) {
     let input = req.body;
-    console.log(input);
-    let updateStr = '';
-    for (let val of input) updateStr += ` ${val}`;
-    excStmt(`PR_BILL_UPDATE ${updateStr}`, 'post').then((value) => {
+    const updateObj = spFunc.updateDataStr(input);
+    console.log(updateObj);
+    excStmt(
+      `update bill set ${updateObj.set} where ${updateObj.id}`,
+      'post'
+    ).then((value) => {
       res.send('done');
     });
   }
 
-  // insert data for table s
+  // insert data for table
   create(req, res, next) {
     let input = req.body;
     const insertObj = spFunc.insertDataStr(input);
