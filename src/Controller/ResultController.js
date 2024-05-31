@@ -24,7 +24,7 @@ class ResultController {
     let input = req.body;
     let updateDataStr = '';
     console.log(input);
-    for (const key in object) {
+    for (const key in input) {
       if (Object.hasOwnProperty.call(object, key)) {
         const value = object[key];
         if (isNaN(value))
