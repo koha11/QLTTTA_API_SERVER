@@ -25,8 +25,8 @@ class ResultController {
     let updateDataStr = '';
     console.log(input);
     for (const key in input) {
-      if (Object.hasOwnProperty.call(object, key)) {
-        const value = object[key];
+      if (Object.hasOwnProperty.call(input, key)) {
+        const value = input[key];
         if (isNaN(value))
           updateDataStr += updateDataStr == '' ? `N'${value}'` : `,N'${value}'`;
         else updateDataStr += `, ${value}`;
