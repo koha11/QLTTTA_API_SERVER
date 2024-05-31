@@ -24,10 +24,13 @@ class ResultController {
     let input = req.body;
     let updateDataStr = '';
     console.log(input);
-    for (const value of input) {
-      if (isNaN(value))
-        updateDataStr += updateDataStr == '' ? `N'${value}'` : `,N'${value}'`;
-      else updateDataStr += `, ${value}`;
+    for (const key in object) {
+      if (Object.hasOwnProperty.call(object, key)) {
+        const value = object[key];
+        if (isNaN(value))
+          updateDataStr += updateDataStr == '' ? `N'${value}'` : `,N'${value}'`;
+        else updateDataStr += `, ${value}`;
+      }
     }
     excStmt(`PR_RESULT_UPDATE ${updateDataStr}`, 'post').then((value) => {
       res.send('done');
